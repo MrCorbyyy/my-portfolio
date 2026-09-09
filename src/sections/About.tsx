@@ -91,8 +91,8 @@ export default function About() {
                 marginBottom: '20px',
               }}
             >
-              Why You <span style={{ color: '#FF8A3D' }}>Hire Me</span> for <br className="about-br" />
-              Your Next Projects?
+              Let’s Build Something <span style={{ color: '#FF8A3D' }}>Hire Me</span> for <br className="about-br" />
+              Great Together
             </h2>
 
             {/* User Description */}
