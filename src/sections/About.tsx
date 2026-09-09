@@ -1,15 +1,9 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { FiDownload, FiCheckCircle } from 'react-icons/fi';
-import { SiReact, SiTypescript, SiJavascript, SiTailwindcss, SiVite } from 'react-icons/si';
 
-const techBadges = [
-  { name: 'React', icon: <SiReact size={14} />, color: '#009BD4' },
-  { name: 'TypeScript', icon: <SiTypescript size={14} />, color: '#3178c6' },
-  { name: 'JavaScript', icon: <SiJavascript size={14} />, color: '#f7df1e' },
-  { name: 'Tailwind CSS', icon: <SiTailwindcss size={14} />, color: '#009BD4' },
-  { name: 'Vite', icon: <SiVite size={14} />, color: '#646cff' },
-];
+
+
 
 const traits = [
   'Clean, maintainable, self-documenting code',
