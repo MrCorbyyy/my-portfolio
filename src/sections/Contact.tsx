@@ -214,7 +214,7 @@ export default function Contact() {
                     onMouseEnter={(e) => {
                       (e.currentTarget as HTMLElement).style.borderColor = '#00C2FF';
                       (e.currentTarget as HTMLElement).style.color = '#009BD4';
-                      (e.currentTarget as HTMLElement).style.boxShadow = '0 0 14px rgba(0, 194, 255, 0.2)';
+                      (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.12)';
                     }}
                     onMouseLeave={(e) => {
                       (e.currentTarget as HTMLElement).style.borderColor = '#E2E8F0';
@@ -285,8 +285,8 @@ export default function Contact() {
                         color: isActive ? '#FFFFFF' : '#64748B',
                         boxShadow: isActive
                           ? isWA
-                            ? '0 4px 14px rgba(37, 211, 102, 0.35)'
-                            : '0 4px 14px rgba(0, 194, 255, 0.35)'
+                            ? '0 4px 14px rgba(37, 211, 102, 0.3)'
+                            : '0 4px 14px rgba(37, 99, 235, 0.2)'
                           : 'none',
                       }}
                     >
@@ -322,7 +322,7 @@ export default function Contact() {
                     style={inputStyle}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#00C2FF';
-                      e.target.style.boxShadow = '0 0 12px rgba(0, 194, 255, 0.35)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
                     }}
                     onBlur={(e) => {
                       e.target.style.borderColor = '#E2E8F0';
@@ -349,7 +349,7 @@ export default function Contact() {
                     style={inputStyle}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#00C2FF';
-                      e.target.style.boxShadow = '0 0 12px rgba(0, 194, 255, 0.35)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
                     }}
                     onBlur={(e) => {
                       e.target.style.borderColor = '#E2E8F0';
@@ -376,7 +376,7 @@ export default function Contact() {
                     style={{ ...inputStyle, resize: 'vertical', minHeight: '140px' }}
                     onFocus={(e) => {
                       e.target.style.borderColor = '#00C2FF';
-                      e.target.style.boxShadow = '0 0 12px rgba(0, 194, 255, 0.35)';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.15)';
                     }}
                     onBlur={(e) => {
                       e.target.style.borderColor = '#E2E8F0';
@@ -410,8 +410,8 @@ export default function Contact() {
                       ? 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)'
                       : 'linear-gradient(135deg, #00C2FF 0%, #0052CC 100%)',
                     boxShadow: sendVia === 'whatsapp'
-                      ? '0 6px 20px rgba(37, 211, 102, 0.4)'
-                      : '0 6px 20px rgba(0, 194, 255, 0.4)',
+                      ? '0 4px 14px rgba(37, 211, 102, 0.3)'
+                      : '0 4px 14px rgba(37, 99, 235, 0.22)',
                   }}
                   aria-label={`Send message via ${sendVia}`}
                 >

@@ -44,8 +44,8 @@ export default function Footer() {
             color: '#070C18',
             fontWeight: '800',
             fontSize: '22px',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 0 25px rgba(0, 194, 255, 0.65)',
+            border: '2px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
           }}
         >
           R
@@ -84,9 +84,9 @@ export default function Footer() {
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.color = '#00C2FF';
-                (e.currentTarget as HTMLElement).style.background = 'rgba(0, 194, 255, 0.15)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(0, 194, 255, 0.1)';
                 (e.currentTarget as HTMLElement).style.borderColor = '#00C2FF';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 16px rgba(0, 194, 255, 0.5)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.15)';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.color = '#94A3B8';

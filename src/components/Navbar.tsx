@@ -37,7 +37,7 @@ export default function Navbar() {
         background: scrolled ? 'rgba(255, 255, 255, 0.95)' : '#FFFFFF',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         borderBottom: `1px solid ${scrolled ? '#E2E8F0' : 'transparent'}`,
-        boxShadow: scrolled ? '0 4px 20px rgba(0, 194, 255, 0.08)' : 'none',
+        boxShadow: scrolled ? '0 4px 16px rgba(15, 23, 42, 0.05)' : 'none',
         transition: 'all 0.3s ease',
         padding: '0 6vw',
       }}
@@ -68,17 +68,17 @@ export default function Navbar() {
               fontWeight: '800',
               fontSize: '20px',
               letterSpacing: '-0.5px',
-              boxShadow: '0 0 18px rgba(0, 194, 255, 0.5)',
+              boxShadow: '0 4px 12px rgba(37, 99, 235, 0.15)',
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               userSelect: 'none',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.08) rotate(-5deg)';
-              e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 194, 255, 0.8)';
+              e.currentTarget.style.boxShadow = '0 6px 18px rgba(37, 99, 235, 0.25)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
-              e.currentTarget.style.boxShadow = '0 0 18px rgba(0, 194, 255, 0.5)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.15)';
             }}
           >
             R
@@ -154,7 +154,7 @@ export default function Navbar() {
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.12) rotate(20deg)';
               (e.currentTarget as HTMLButtonElement).style.borderColor = '#00C2FF';
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 16px rgba(0, 194, 255, 0.4)';
+              (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.12)';
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1) rotate(0deg)';
