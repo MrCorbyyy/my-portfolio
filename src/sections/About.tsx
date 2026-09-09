@@ -91,7 +91,7 @@ export default function About() {
                 marginBottom: '20px',
               }}
             >
-              Let’s Build Something <span style={{ color: '#FF8A3D' }}>Hire Me</span> for <br className="about-br" />
+              Let’s <span style={{ color: '#FF8A3D' }}>Build </span>Something <br className="about-br" />
               Great Together
             </h2>
 
