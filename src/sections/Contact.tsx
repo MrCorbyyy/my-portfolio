@@ -13,6 +13,7 @@ import {
   FiUser,
   FiMessageSquare,
 } from 'react-icons/fi';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const socialLinks = [
   {
@@ -53,23 +54,40 @@ const contactInfo = [
 
 type FormState = { name: string; email: string; message: string };
 type Status = 'idle' | 'sending' | 'success' | 'error';
+type SendVia = 'email' | 'whatsapp';
 
 export default function Contact() {
   const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<Status>('idle');
+  const [sendVia, setSendVia] = useState<SendVia>('email');
   const formRef = useRef<HTMLFormElement>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  async function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setStatus('sending');
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus('success');
-    setForm({ name: '', email: '', message: '' });
-    setTimeout(() => setStatus('idle'), 4000);
+
+    const { name, email, message } = form;
+
+    setTimeout(() => {
+      if (sendVia === 'email') {
+        const subject = encodeURIComponent(`Message from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.open(`mailto:corby12rich@gmail.com?subject=${subject}&body=${body}`, '_blank');
+      } else {
+        const text = encodeURIComponent(
+          `Hi Richard! I'm ${name} (${email}).\n\n${message}`
+        );
+        window.open(`https://wa.me/233509829682?text=${text}`, '_blank');
+      }
+
+      setStatus('success');
+      setForm({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 4000);
+    }, 600);
   }
 
   const inputStyle = {
@@ -223,9 +241,61 @@ export default function Contact() {
               <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0F172A', marginBottom: '8px' }}>
                 Send a Message
               </h3>
-              <p style={{ fontSize: '14px', color: '#64748B', marginBottom: '28px' }}>
-                Fill out the form below and I'll get back to you as soon as possible.
+              <p style={{ fontSize: '14px', color: '#64748B', marginBottom: '20px' }}>
+                Fill out the form and choose how you'd like to reach me.
               </p>
+
+              {/* Channel picker */}
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '10px',
+                  marginBottom: '28px',
+                  background: '#F1F5F9',
+                  borderRadius: '12px',
+                  padding: '4px',
+                }}
+              >
+                {(['email', 'whatsapp'] as SendVia[]).map((method) => {
+                  const isActive = sendVia === method;
+                  const isWA = method === 'whatsapp';
+                  return (
+                    <button
+                      key={method}
+                      type="button"
+                      id={`contact-via-${method}`}
+                      onClick={() => setSendVia(method)}
+                      style={{
+                        flex: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '8px',
+                        padding: '10px 16px',
+                        borderRadius: '9px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        fontWeight: '600',
+                        fontFamily: 'Inter, sans-serif',
+                        transition: 'all 0.25s ease',
+                        background: isActive
+                          ? isWA ? '#25D366' : '#00C2FF'
+                          : 'transparent',
+                        color: isActive ? '#FFFFFF' : '#64748B',
+                        boxShadow: isActive
+                          ? isWA
+                            ? '0 4px 14px rgba(37, 211, 102, 0.35)'
+                            : '0 4px 14px rgba(0, 194, 255, 0.35)'
+                          : 'none',
+                      }}
+                    >
+                      {isWA ? <FaWhatsapp size={15} /> : <FiMail size={14} />}
+                      {isWA ? 'WhatsApp' : 'Email'}
+                    </button>
+                  );
+                })}
+              </div>
 
               <form
                 id="contact-form"
@@ -315,31 +385,52 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Submit button in Electric Cyan with Cyan Glow */}
+                {/* Submit button */}
                 <button
                   type="submit"
                   id="contact-submit-btn"
                   disabled={status === 'sending'}
-                  className="btn-primary"
                   style={{
                     width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'center',
-                    opacity: status === 'sending' ? 0.75 : 1,
+                    gap: '8px',
+                    padding: '14px 24px',
+                    borderRadius: '10px',
+                    border: 'none',
                     cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+                    fontSize: '15px',
+                    fontWeight: '700',
+                    fontFamily: 'Inter, sans-serif',
+                    color: '#FFFFFF',
+                    transition: 'all 0.25s ease',
+                    opacity: status === 'sending' ? 0.75 : 1,
+                    background: sendVia === 'whatsapp'
+                      ? 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)'
+                      : 'linear-gradient(135deg, #00C2FF 0%, #0052CC 100%)',
+                    boxShadow: sendVia === 'whatsapp'
+                      ? '0 6px 20px rgba(37, 211, 102, 0.4)'
+                      : '0 6px 20px rgba(0, 194, 255, 0.4)',
                   }}
-                  aria-label="Send message"
+                  aria-label={`Send message via ${sendVia}`}
                 >
                   {status === 'sending' ? (
                     <>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ animation: 'spin 1s linear infinite' }}>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="30 70" />
                       </svg>
-                      Sending...
+                      Opening...
+                    </>
+                  ) : sendVia === 'whatsapp' ? (
+                    <>
+                      <FaWhatsapp size={17} />
+                      Send via WhatsApp
                     </>
                   ) : (
                     <>
                       <FiSend size={16} />
-                      Send Message
+                      Send via Email
                     </>
                   )}
                 </button>
@@ -356,16 +447,20 @@ export default function Contact() {
                       alignItems: 'center',
                       gap: '8px',
                       padding: '12px 16px',
-                      background: 'rgba(0, 194, 255, 0.1)',
-                      border: '1px solid #00C2FF',
+                      background: sendVia === 'whatsapp'
+                        ? 'rgba(37, 211, 102, 0.1)'
+                        : 'rgba(0, 194, 255, 0.1)',
+                      border: `1px solid ${sendVia === 'whatsapp' ? '#25D366' : '#00C2FF'}`,
                       borderRadius: '8px',
-                      color: '#009BD4',
+                      color: sendVia === 'whatsapp' ? '#128C7E' : '#009BD4',
                       fontSize: '14px',
                       fontWeight: '600',
                     }}
                   >
                     <FiCheck size={16} />
-                    Thank you! Your message has been sent successfully.
+                    {sendVia === 'whatsapp'
+                      ? 'WhatsApp opened! Your message is ready to send.'
+                      : 'Email client opened! Your message is ready to send.'}
                   </motion.div>
                 )}
               </form>
