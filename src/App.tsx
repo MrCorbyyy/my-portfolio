@@ -1,4 +1,5 @@
 import './index.css';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
@@ -9,26 +10,26 @@ import Contact from './sections/Contact';
 
 export default function App() {
   return (
-    <div style={{ background: '#f1f5f9' }}>
-      {/* Navigation */}
-      <Navbar />
+    <ThemeProvider>
+      <div className="app-root">
+        {/* Navigation */}
+        <Navbar />
 
-      {/* Main page wrapper — white card */}
-      <main
-        id="main-content"
-        role="main"
-        style={{
-          background: '#ffffff',
-        }}
-      >
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
+        {/* Main page wrapper */}
+        <main
+          id="main-content"
+          role="main"
+          className="main-content"
+        >
+          <Hero />
+          <Projects />
+          <About />
+          <Skills />
+          <Contact />
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }

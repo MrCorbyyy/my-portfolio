@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { FiHome, FiUser, FiPhone, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiUser, FiPhone, FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
+import { useTheme } from '../context/ThemeContext';
 
 const navItems = [
   { label: 'Home', icon: <FiHome size={16} />, to: 'home' },
+  { label: 'Projects', icon: null, to: 'projects' },
   { label: 'About Me', icon: <FiUser size={16} />, to: 'about' },
   { label: 'Skills', icon: null, to: 'skills' },
-  { label: 'Projects', icon: null, to: 'projects' },
   { label: 'Contact Me', icon: <FiPhone size={16} />, to: 'contact' },
 ];
 
@@ -14,6 +15,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('home');
+  const { theme, toggle } = useTheme();
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -26,15 +29,15 @@ export default function Navbar() {
       role="navigation"
       aria-label="Main navigation"
       style={{
-        position: 'fixed',        
+        position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
-        background: scrolled ? 'rgba(255,255,255,0.95)' : '#ffffff',
+        background: scrolled ? 'rgba(255, 255, 255, 0.95)' : '#FFFFFF',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: `1px solid ${scrolled ? '#e2e8f0' : 'transparent'}`,
-        boxShadow: scrolled ? '0 2px 20px rgba(14,165,233,0.08)' : 'none',
+        borderBottom: `1px solid ${scrolled ? '#E2E8F0' : 'transparent'}`,
+        boxShadow: scrolled ? '0 4px 20px rgba(0, 194, 255, 0.08)' : 'none',
         transition: 'all 0.3s ease',
         padding: '0 6vw',
       }}
@@ -49,7 +52,7 @@ export default function Navbar() {
           height: '72px',
         }}
       >
-        {/* Logo */}
+        {/* Logo in Electric Cyan with cyan glow */}
         <Link to="home" smooth duration={600} style={{ cursor: 'pointer' }}>
           <div
             id="nav-logo"
@@ -57,20 +60,26 @@ export default function Navbar() {
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
+              background: 'linear-gradient(135deg, #00C2FF, #009BD4)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'white',
+              color: '#FFFFFF',
               fontWeight: '800',
               fontSize: '20px',
               letterSpacing: '-0.5px',
-              boxShadow: '0 4px 14px rgba(14, 165, 233, 0.4)',
-              transition: 'transform 0.3s ease',
+              boxShadow: '0 0 18px rgba(0, 194, 255, 0.5)',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               userSelect: 'none',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.08) rotate(-5deg)')}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1) rotate(0deg)')}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.08) rotate(-5deg)';
+              e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 194, 255, 0.8)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1) rotate(0deg)';
+              e.currentTarget.style.boxShadow = '0 0 18px rgba(0, 194, 255, 0.5)';
+            }}
           >
             R
           </div>
@@ -97,17 +106,17 @@ export default function Navbar() {
                 padding: '8px 16px',
                 borderRadius: '8px',
                 cursor: 'pointer',
-                fontWeight: '500',
+                fontWeight: active === item.to ? '600' : '500',
                 fontSize: '14px',
                 transition: 'all 0.25s ease',
-                color: active === item.to ? '#f59e0b' : '#475569',
-                background: active === item.to ? 'rgba(245, 158, 11, 0.08)' : 'transparent',
+                color: active === item.to ? '#009BD4' : '#475569',
+                background: active === item.to ? 'rgba(0, 194, 255, 0.08)' : 'transparent',
                 userSelect: 'none',
               }}
               onMouseEnter={(e) => {
                 if (active !== item.to) {
-                  (e.currentTarget as HTMLElement).style.color = '#0ea5e9';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(14, 165, 233, 0.06)';
+                  (e.currentTarget as HTMLElement).style.color = '#00C2FF';
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(0, 194, 255, 0.06)';
                 }
               }}
               onMouseLeave={(e) => {
@@ -121,27 +130,83 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+
+          {/* ── Dark / Light toggle ── */}
+          <button
+            id="theme-toggle"
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={toggle}
+            style={{
+              marginLeft: '8px',
+              width: '42px',
+              height: '42px',
+              borderRadius: '50%',
+              border: '1.5px solid #E2E8F0',
+              background: '#F8FAFC',
+              color: isDark ? '#FF8A3D' : '#009BD4',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              flexShrink: 0,
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.12) rotate(20deg)';
+              (e.currentTarget as HTMLButtonElement).style.borderColor = '#00C2FF';
+              (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 16px rgba(0, 194, 255, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1) rotate(0deg)';
+              (e.currentTarget as HTMLButtonElement).style.borderColor = '#E2E8F0';
+              (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
+            }}
+          >
+            {isDark ? <FiSun size={18} /> : <FiMoon size={18} />}
+          </button>
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          id="mobile-menu-toggle"
-          aria-label="Toggle mobile menu"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: '#0ea5e9',
-            padding: '8px',
-            borderRadius: '8px',
-          }}
-          className="mobile-nav-toggle"
-        >
-          {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
+        {/* Mobile right side: toggle + hamburger */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="mobile-actions">
+          <button
+            id="theme-toggle-mobile"
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            onClick={toggle}
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '50%',
+              border: '1.5px solid #E2E8F0',
+              background: '#F8FAFC',
+              color: isDark ? '#FF8A3D' : '#009BD4',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            {isDark ? <FiSun size={16} /> : <FiMoon size={16} />}
+          </button>
+
+          <button
+            id="mobile-menu-toggle"
+            aria-label="Toggle mobile menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#009BD4',
+              padding: '8px',
+              borderRadius: '8px',
+            }}
+            className="mobile-nav-toggle"
+          >
+            {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -153,13 +218,13 @@ export default function Navbar() {
             top: '72px',
             left: 0,
             right: 0,
-            background: 'white',
-            borderBottom: '1px solid #e2e8f0',
+            background: '#FFFFFF',
+            borderBottom: '1px solid #E2E8F0',
             padding: '16px',
             display: 'flex',
             flexDirection: 'column',
             gap: '4px',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.1)',
           }}
         >
           {navItems.map((item) => (
@@ -177,10 +242,10 @@ export default function Navbar() {
                 padding: '12px 16px',
                 borderRadius: '8px',
                 cursor: 'pointer',
-                fontWeight: '500',
+                fontWeight: active === item.to ? '600' : '500',
                 fontSize: '15px',
-                color: active === item.to ? '#f59e0b' : '#475569',
-                background: active === item.to ? 'rgba(245, 158, 11, 0.08)' : 'transparent',
+                color: active === item.to ? '#009BD4' : '#475569',
+                background: active === item.to ? 'rgba(0, 194, 255, 0.08)' : 'transparent',
               }}
             >
               {item.icon && <span>{item.icon}</span>}
@@ -193,7 +258,11 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .mobile-nav-toggle { display: flex !important; }
+          .mobile-actions { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .mobile-actions { display: none !important; }
+          .mobile-nav-toggle { display: none !important; }
         }
       `}</style>
     </nav>

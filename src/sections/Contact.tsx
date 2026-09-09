@@ -1,52 +1,54 @@
-import { useState, useRef, FormEvent } from 'react';
+import { useState, useRef } from 'react';
+import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import {
   FiMail,
-  FiUser,
-  FiMessageSquare,
-  FiSend,
   FiMapPin,
   FiPhone,
+  FiSend,
+  FiCheck,
   FiGithub,
   FiLinkedin,
   FiTwitter,
+  FiUser,
+  FiMessageSquare,
 } from 'react-icons/fi';
 
 const socialLinks = [
   {
     id: 'social-github',
     icon: <FiGithub size={20} />,
-    href: 'https://github.com',
+    href: 'https://github.com/MrCorbyyy',
     label: 'GitHub',
-    color: '#333',
+    color: '#475569',
   },
   {
     id: 'social-linkedin',
     icon: <FiLinkedin size={20} />,
-    href: 'https://linkedin.com',
+    href: 'https://www.linkedin.com/in/richard-obeng-270b38336/',
     label: 'LinkedIn',
     color: '#0077b5',
   },
   {
     id: 'social-twitter',
     icon: <FiTwitter size={20} />,
-    href: 'https://twitter.com',
+    href: 'https://twitter.com/iam_mrObeng',
     label: 'Twitter / X',
     color: '#1da1f2',
   },
   {
     id: 'social-email',
     icon: <FiMail size={20} />,
-    href: 'mailto:richard@example.com',
+    href: 'mailto:corby12rich@gmail.com',
     label: 'Email',
-    color: '#0ea5e9',
+    color: '#FF8A3D',
   },
 ];
 
 const contactInfo = [
   { icon: <FiMapPin size={18} />, label: 'Location', value: 'Accra, Ghana' },
-  { icon: <FiMail size={18} />, label: 'Email', value: 'richard@example.com' },
-  { icon: <FiPhone size={18} />, label: 'Phone', value: '+233 000 000 000' },
+  { icon: <FiMail size={18} />, label: 'Email', value: 'corby12rich@gmail.com' },
+  { icon: <FiPhone size={18} />, label: 'Phone', value: '+233 050 982 9682' },
 ];
 
 type FormState = { name: string; email: string; message: string };
@@ -64,7 +66,6 @@ export default function Contact() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setStatus('sending');
-    // Simulate form submission
     await new Promise((r) => setTimeout(r, 1500));
     setStatus('success');
     setForm({ name: '', email: '', message: '' });
@@ -74,13 +75,13 @@ export default function Contact() {
   const inputStyle = {
     width: '100%',
     padding: '14px 16px',
-    border: '1.5px solid #e2e8f0',
+    border: '1.5px solid #E2E8F0',
     borderRadius: '10px',
     fontSize: '14px',
-    color: '#0f172a',
-    background: '#f8fafc',
+    color: '#0F172A',
+    background: '#F8FAFC',
     outline: 'none',
-    transition: 'all 0.2s ease',
+    transition: 'all 0.25s ease',
     fontFamily: 'Inter, sans-serif',
     boxSizing: 'border-box' as const,
   };
@@ -89,10 +90,12 @@ export default function Contact() {
     <section
       id="contact"
       aria-label="Contact section"
-      style={{ padding: '100px 0', background: '#f8fafc' }}
+      style={{
+        padding: '100px 0',
+        background: '#FFFFFF',
+      }}
     >
       <div className="section-container">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +103,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           style={{ textAlign: 'center', marginBottom: '64px' }}
         >
-          <p style={{ color: '#0ea5e9', fontWeight: '500', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
+          <p style={{ color: '#009BD4', fontWeight: '600', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
             Let's Talk
           </p>
           <h2
@@ -110,7 +113,7 @@ export default function Contact() {
           >
             Get In Touch
           </h2>
-          <p style={{ marginTop: '20px', color: '#475569', maxWidth: '500px', margin: '20px auto 0' }}>
+          <p style={{ marginTop: '20px', color: '#64748B', maxWidth: '500px', margin: '20px auto 0' }}>
             Have a project in mind or just want to say hi? I'd love to hear from you!
           </p>
         </motion.div>
@@ -133,7 +136,7 @@ export default function Contact() {
           >
             {/* Contact details */}
             <div className="card" style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#0f172a', marginBottom: '4px' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#0F172A', marginBottom: '4px' }}>
                 Contact Information
               </h3>
               {contactInfo.map((info) => (
@@ -143,19 +146,20 @@ export default function Contact() {
                       width: '40px',
                       height: '40px',
                       borderRadius: '10px',
-                      background: 'rgba(14,165,233,0.08)',
+                      background: 'rgba(0, 194, 255, 0.08)',
+                      border: '1px solid rgba(0, 194, 255, 0.25)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#0ea5e9',
+                      color: '#009BD4',
                       flexShrink: 0,
                     }}
                   >
                     {info.icon}
                   </div>
                   <div>
-                    <p style={{ fontSize: '12px', color: '#94a3b8', fontWeight: '500', marginBottom: '2px' }}>{info.label}</p>
-                    <p style={{ fontSize: '14px', color: '#0f172a', fontWeight: '500' }}>{info.value}</p>
+                    <p style={{ fontSize: '12px', color: '#94A3B8', fontWeight: '500', marginBottom: '2px' }}>{info.label}</p>
+                    <p style={{ fontSize: '14px', color: '#0F172A', fontWeight: '600' }}>{info.value}</p>
                   </div>
                 </div>
               ))}
@@ -163,7 +167,7 @@ export default function Contact() {
 
             {/* Social links */}
             <div className="card" style={{ padding: '28px' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0f172a', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '16px', fontWeight: '700', color: '#0F172A', marginBottom: '20px' }}>
                 Find Me On
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -174,49 +178,54 @@ export default function Contact() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={social.label}
+                    aria-label={`Visit my ${social.label}`}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '12px',
                       padding: '10px 14px',
-                      borderRadius: '8px',
+                      borderRadius: '10px',
+                      border: '1px solid #E2E8F0',
                       textDecoration: 'none',
                       color: '#475569',
+                      fontSize: '14px',
+                      fontWeight: '500',
                       transition: 'all 0.2s ease',
-                      background: '#f8fafc',
-                      border: '1px solid #e2e8f0',
+                      background: '#F8FAFC',
                     }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = social.color;
-                      (e.currentTarget as HTMLElement).style.borderColor = social.color;
-                      (e.currentTarget as HTMLElement).style.background = `${social.color}10`;
+                      (e.currentTarget as HTMLElement).style.borderColor = '#00C2FF';
+                      (e.currentTarget as HTMLElement).style.color = '#009BD4';
+                      (e.currentTarget as HTMLElement).style.boxShadow = '0 0 14px rgba(0, 194, 255, 0.2)';
                     }}
                     onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = '#E2E8F0';
                       (e.currentTarget as HTMLElement).style.color = '#475569';
-                      (e.currentTarget as HTMLElement).style.borderColor = '#e2e8f0';
-                      (e.currentTarget as HTMLElement).style.background = '#f8fafc';
+                      (e.currentTarget as HTMLElement).style.boxShadow = 'none';
                     }}
                   >
-                    <span style={{ color: 'inherit' }}>{social.icon}</span>
-                    <span style={{ fontSize: '14px', fontWeight: '500' }}>{social.label}</span>
+                    <span style={{ color: social.color }}>{social.icon}</span>
+                    {social.label}
                   </a>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Right: Form */}
+          {/* Right: Contact form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="card" style={{ padding: '40px' }}>
-              <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0f172a', marginBottom: '28px' }}>
+            <div className="card" style={{ padding: '36px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#0F172A', marginBottom: '8px' }}>
                 Send a Message
               </h3>
+              <p style={{ fontSize: '14px', color: '#64748B', marginBottom: '28px' }}>
+                Fill out the form below and I'll get back to you as soon as possible.
+              </p>
 
               <form
                 id="contact-form"
@@ -227,9 +236,9 @@ export default function Contact() {
               >
                 {/* Name */}
                 <div>
-                  <label htmlFor="contact-name" style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+                  <label htmlFor="contact-name" style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F172A', marginBottom: '8px' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <FiUser size={14} color="#0ea5e9" /> Full Name
+                      <FiUser size={14} color="#009BD4" /> Full Name
                     </span>
                   </label>
                   <input
@@ -241,16 +250,22 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     style={inputStyle}
-                    onFocus={(e) => { e.target.style.borderColor = '#0ea5e9'; e.target.style.background = '#ffffff'; }}
-                    onBlur={(e) => { e.target.style.borderColor = '#e2e8f0'; e.target.style.background = '#f8fafc'; }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#00C2FF';
+                      e.target.style.boxShadow = '0 0 12px rgba(0, 194, 255, 0.35)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#E2E8F0';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="contact-email" style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+                  <label htmlFor="contact-email" style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F172A', marginBottom: '8px' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <FiMail size={14} color="#0ea5e9" /> Email Address
+                      <FiMail size={14} color="#009BD4" /> Email Address
                     </span>
                   </label>
                   <input
@@ -262,16 +277,22 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     style={inputStyle}
-                    onFocus={(e) => { e.target.style.borderColor = '#0ea5e9'; e.target.style.background = '#ffffff'; }}
-                    onBlur={(e) => { e.target.style.borderColor = '#e2e8f0'; e.target.style.background = '#f8fafc'; }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#00C2FF';
+                      e.target.style.boxShadow = '0 0 12px rgba(0, 194, 255, 0.35)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#E2E8F0';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="contact-message" style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+                  <label htmlFor="contact-message" style={{ display: 'block', fontSize: '13px', fontWeight: '600', color: '#0F172A', marginBottom: '8px' }}>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <FiMessageSquare size={14} color="#0ea5e9" /> Message
+                      <FiMessageSquare size={14} color="#009BD4" /> Message
                     </span>
                   </label>
                   <textarea
@@ -283,12 +304,18 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     style={{ ...inputStyle, resize: 'vertical', minHeight: '140px' }}
-                    onFocus={(e) => { e.target.style.borderColor = '#0ea5e9'; e.target.style.background = '#ffffff'; }}
-                    onBlur={(e) => { e.target.style.borderColor = '#e2e8f0'; e.target.style.background = '#f8fafc'; }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#00C2FF';
+                      e.target.style.boxShadow = '0 0 12px rgba(0, 194, 255, 0.35)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#E2E8F0';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
-                {/* Submit */}
+                {/* Submit button in Electric Cyan with Cyan Glow */}
                 <button
                   type="submit"
                   id="contact-submit-btn"
@@ -317,24 +344,28 @@ export default function Contact() {
                   )}
                 </button>
 
-                {/* Success/Error feedback */}
+                {/* Success feedback */}
                 {status === 'success' && (
                   <motion.div
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    id="contact-success-msg"
                     role="alert"
                     style={{
-                      padding: '14px 18px',
-                      background: 'rgba(16, 185, 129, 0.08)',
-                      border: '1px solid rgba(16, 185, 129, 0.2)',
-                      borderRadius: '10px',
-                      color: '#059669',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '12px 16px',
+                      background: 'rgba(0, 194, 255, 0.1)',
+                      border: '1px solid #00C2FF',
+                      borderRadius: '8px',
+                      color: '#009BD4',
                       fontSize: '14px',
-                      fontWeight: '500',
-                      textAlign: 'center',
+                      fontWeight: '600',
                     }}
                   >
-                    ✅ Message sent! I'll get back to you soon.
+                    <FiCheck size={16} />
+                    Thank you! Your message has been sent successfully.
                   </motion.div>
                 )}
               </form>
@@ -344,9 +375,12 @@ export default function Contact() {
       </div>
 
       <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @media (max-width: 900px) {
-          #contact .section-container > div:last-child {
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @media (max-width: 800px) {
+          #contact .section-container > div:nth-child(2) {
             grid-template-columns: 1fr !important;
           }
         }

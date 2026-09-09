@@ -1,8 +1,51 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
 import { FiBriefcase, FiArrowRight, FiChevronDown } from 'react-icons/fi';
 
+// ── Typewriter hook ────────────────────────────────────────────────────────────
+function useTypewriter(words: string[], speed = 80, pause = 1600) {
+  const [display, setDisplay] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = words[wordIndex % words.length];
+
+    const timeout = setTimeout(() => {
+      if (!deleting) {
+        setDisplay(current.slice(0, charIndex + 1));
+        if (charIndex + 1 === current.length) {
+          setTimeout(() => setDeleting(true), pause);
+        } else {
+          setCharIndex((c) => c + 1);
+        }
+      } else {
+        setDisplay(current.slice(0, charIndex - 1));
+        if (charIndex - 1 === 0) {
+          setDeleting(false);
+          setWordIndex((w) => (w + 1) % words.length);
+          setCharIndex(0);
+        } else {
+          setCharIndex((c) => c - 1);
+        }
+      }
+    }, deleting ? speed / 2 : speed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, wordIndex, words, speed, pause]);
+
+  return display;
+}
+
 export default function Hero() {
+  const role = useTypewriter(
+    ['Developer.', 'Engineer.', 'Specialist.', 'Architect.'],
+    75,
+    1800
+  );
+
   return (
     <section
       id="home"
@@ -11,23 +54,23 @@ export default function Hero() {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        background: '#ffffff',
+        background: '#FFFFFF',
         paddingTop: '72px',
         position: 'relative',
         overflow: 'hidden',
       }}
     >
-      {/* Subtle background decoration */}
+      {/* Subtle background glow: Cyan (#00C2FF) & Coral (#FF8A3D) on white */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
-          top: '10%',
+          top: '5%',
           right: '-5%',
-          width: '500px',
-          height: '500px',
+          width: '560px',
+          height: '560px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(14,165,233,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0, 194, 255, 0.08) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -35,18 +78,18 @@ export default function Hero() {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          bottom: '10%',
+          bottom: '5%',
           left: '-5%',
-          width: '400px',
-          height: '400px',
+          width: '480px',
+          height: '480px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255, 138, 61, 0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
 
       <div
-        className="section-container"
+        className="section-container hero-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -69,17 +112,29 @@ export default function Hero() {
             transition={{ delay: 0.1, duration: 0.5 }}
             id="hero-welcome-text"
             style={{
-              color: '#0ea5e9',
+              color: '#009BD4',
               fontSize: '15px',
-              fontWeight: '500',
+              fontWeight: '600',
               marginBottom: '16px',
-              letterSpacing: '0.3px',
+              letterSpacing: '0.5px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
             }}
           >
+            <span
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: '#00C2FF',
+                boxShadow: '0 0 8px rgba(0, 194, 255, 0.8)',
+              }}
+            />
             Welcome to my site
           </motion.p>
 
-          {/* Main headline */}
+          {/* Main headline: Frontend in #00C2FF, Developer. in #FF8A3D on White background */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -88,15 +143,22 @@ export default function Hero() {
             style={{
               fontSize: 'clamp(36px, 5vw, 58px)',
               fontWeight: '800',
-              lineHeight: '1.1',
+              lineHeight: '1.15',
               marginBottom: '24px',
-              color: '#0ea5e9',
+              color: '#0F172A',
             }}
           >
             Hi, I'm Richard, a{' '}
             <br />
-            <span style={{ color: '#0ea5e9' }}>Frontend </span>
-            <span style={{ color: '#f59e0b' }}>Developer.</span>
+            <span style={{ color: '#00C2FF' }}>Frontend </span>
+            <span style={{ color: '#FF8A3D', whiteSpace: 'nowrap' }}>
+              {role}
+              <span
+                className="typewriter-cursor"
+                style={{ color: '#00C2FF' }}
+                aria-hidden="true"
+              />
+            </span>
           </motion.h1>
 
           {/* Description */}
@@ -121,9 +183,9 @@ export default function Hero() {
               smooth
               duration={600}
               style={{
-                color: '#0ea5e9',
+                color: '#009BD4',
                 cursor: 'pointer',
-                fontWeight: '500',
+                fontWeight: '600',
                 textDecoration: 'none',
               }}
               onMouseEnter={(e) => ((e.target as HTMLElement).style.textDecoration = 'underline')}
@@ -133,7 +195,7 @@ export default function Hero() {
             </Link>
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Action buttons: Electric Cyan with Cyan Glow */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -142,7 +204,7 @@ export default function Hero() {
           >
             <a
               id="hero-hire-btn"
-              href="mailto:richard@example.com"
+              href="mailto:corby12rich@gmail.com"
               className="btn-primary"
               aria-label="Hire me"
             >
@@ -163,7 +225,6 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right: Profile image with decorative cyan shape */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -175,34 +236,33 @@ export default function Hero() {
             position: 'relative',
           }}
         >
-          {/* hero-image-wrapper: expanded to fit the page cleanly */}
           <div
             className="hero-image-wrapper"
             style={{
               position: 'relative',
-              width: 'clamp(380px, 32vw, 470px)',
-              height: 'clamp(400px, 33.7vw, 495px)',
+              width: 'clamp(420px, 38vw, 540px)',
+              height: 'clamp(460px, 40vw, 580px)',
               maxWidth: '100%',
             }}
           >
-            {/* decorative-shape: large cyan curved shape behind the image protruding from left and bottom-left */}
+            {/* Decorative shape in Electric Cyan with cyan glow */}
             <div
               className="decorative-shape"
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                top: '36px',
-                left: '-32px',
-                bottom: '-14px',
-                right: '34px',
-                backgroundColor: '#0ea5e9',
-                borderRadius: '24px 0 0 180px',
+                top: '42px',
+                left: '-38px',
+                bottom: '-18px',
+                right: '40px',
+                backgroundColor: '#00C2FF',
+                borderRadius: '28px 0 0 210px',
                 zIndex: 1,
                 pointerEvents: 'none',
+                boxShadow: '0 0 35px rgba(0, 194, 255, 0.45)',
               }}
             />
 
-            {/* image-container: rectangular container with rounded top-left and sweeping bottom-left curve */}
             <div
               className="image-container"
               style={{
@@ -210,14 +270,15 @@ export default function Hero() {
                 zIndex: 2,
                 width: '100%',
                 height: '100%',
-                borderRadius: '20px 0 0 155px',
+                borderRadius: '24px 0 0 185px',
                 overflow: 'hidden',
-                backgroundColor: '#e0f2fe',
-                boxShadow: '0 24px 54px rgba(14, 165, 233, 0.2)',
+                backgroundColor: '#E0F7FF',
+                border: '3px solid #00C2FF',
+                boxShadow: '0 24px 54px rgba(0, 194, 255, 0.22)',
               }}
             >
               <img
-                src="/richard.jpg"
+                src="/images/me.jpeg"
                 alt="Richard Obeng – Frontend Developer"
                 style={{
                   width: '100%',
@@ -248,40 +309,21 @@ export default function Hero() {
           gap: '4px',
         }}
       >
-        <span style={{ fontSize: '12px', color: '#94a3b8', letterSpacing: '0.5px' }}>SCROLL</span>
+        <span style={{ fontSize: '12px', color: '#94A3B8', letterSpacing: '0.5px' }}>SCROLL</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          style={{ color: '#0ea5e9' }}
+          style={{ color: '#00C2FF' }}
         >
           <FiChevronDown size={20} />
         </motion.div>
       </motion.div>
 
       <style>{`
+        /* Hero button centering on tablet */
         @media (max-width: 900px) {
-          #home [style*="gridTemplateColumns"] {
-            grid-template-columns: 1fr !important;
-            gap: 48px !important;
-            text-align: center !important;
-          }
-          #home .hero-image-wrapper {
-            margin: 0 auto !important;
-            width: clamp(260px, 70vw, 340px) !important;
-            height: clamp(275px, 74vw, 360px) !important;
-          }
-          #home .decorative-shape {
-            top: 24px !important;
-            left: -24px !important;
-            bottom: -10px !important;
-            right: 24px !important;
-            border-radius: 18px 0 0 135px !important;
-          }
-          #home .image-container {
-            border-radius: 16px 0 0 120px !important;
-          }
-          #hero-description { max-width: 100% !important; }
-          #home [style*="flexWrap"] { justify-content: center; }
+          .hero-grid { text-align: center !important; }
+          #home [style*="flexWrap"] { justify-content: center !important; }
         }
       `}</style>
     </section>
