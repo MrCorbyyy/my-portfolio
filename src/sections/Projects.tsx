@@ -114,7 +114,7 @@ const projects = [
     tech: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     gradient: 'linear-gradient(135deg, #00C2FF 0%, #FF8A3D 100%)',
     image: '/images/portfolio.png',
-    live: '#home',
+    live: 'https://my-portfolio-ashen-gamma-42.vercel.app/',
     github: 'https://github.com/MrCorbyyy/my-portfolio',
     featured: true,
   },
